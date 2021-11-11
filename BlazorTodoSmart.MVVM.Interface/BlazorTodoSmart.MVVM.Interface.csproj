@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlazorTodoSmart.Models\BlazorTodoSmart.Models.csproj" />
+    <ProjectReference Include="..\Client.MVVM.CommonInterface\Client.MVVM.CommonInterface.csproj" />
+  </ItemGroup>
+
+</Project>

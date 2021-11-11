@@ -1,0 +1,99 @@
+﻿@using BlazorTodoSmart.Models
+<td>
+    <ul class="listview image-listview media">
+        <li>
+            <a class="item" @onclick="OnClickItem">
+                @if (IsCheckEnabled)
+                {
+                    <div class="imageWrapper">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="@string.Format("chk{0}",RowActivity.IdActivity)" @bind-value="RowActivity.IsClosed" @onclick="eventArgs => { MyRowOnChecked(eventArgs, RowActivity.IsClosed, RowActivity.IdActivity); }">
+                            <label class="form-check-label" for="@string.Format("chk{0}",RowActivity.IdActivity)"></label>
+                        </div>
+                    </div>
+                }
+
+                @if (IsDetailEnabled)
+                {
+                    <div class="in" data-bs-toggle="modal" data-bs-target="#updateActivity">
+                        <div style="width:100%">
+                            <h4 class="title">@RowActivity.Description</h4>
+                            <div class="comment-footer">
+                                @if (RowActivity.IdProject == 0)
+                                {
+                                    <a class="comment-button">
+                                        <ion-icon name="file-tray-outline" role="img" class="md hydrated text-primary" aria-label="heart outline"></ion-icon>
+                                        <small> Inbox</small>
+                                    </a>
+                                }
+                                @if (RowActivity.DueDate.HasValue)
+                                {
+                                    <a class="comment-button" style="margin-left:9px">
+                                        <ion-icon name="calendar-number-outline" role="img" class="md hydrated text-success" aria-label="heart outline"></ion-icon>
+                                        <small> @RowActivity.DueDateString</small>
+
+                                    </a>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="in">
+                        <div style="width:100%">
+                            <h4 class="title">@RowActivity.Description</h4>
+                            <div class="comment-footer">
+                                @if (RowActivity.IdProject == 0)
+                                {
+                                    <a class="comment-button">
+                                        <ion-icon name="file-tray-outline" role="img" class="md hydrated text-primary" aria-label="heart outline"></ion-icon>
+                                        <small> Inbox</small>
+                                    </a>
+                                }
+                                @if (RowActivity.DueDate.HasValue)
+                                {
+                                    <a class="comment-button" style="margin-left:9px">
+                                        <ion-icon name="calendar-number-outline" role="img" class="md hydrated text-success" aria-label="heart outline"></ion-icon>
+                                        <small> @RowActivity.DueDateString</small>
+
+                                    </a>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </a>
+        </li>
+    </ul>
+
+</td>
+
+@code {
+
+    [Parameter]
+    public ActivityItem RowActivity { get; set; }
+
+    [Parameter]
+    public EventCallback<int> CheckedItemCallBack { get; set; }
+
+    [Parameter]
+    public EventCallback OnClickItem { get; set; }
+
+    private void MyRowOnChecked(MouseEventArgs eventArgs, bool ischecked, int IdActivityCheck)
+    {
+
+        if (!ischecked)
+            CheckedItemCallBack.InvokeAsync(IdActivityCheck);
+
+    }
+
+    [Parameter]
+    public bool IsCheckEnabled { get; set; } = true;
+
+    [Parameter]
+    public bool IsDetailEnabled { get; set; } = true;
+}

@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlazorTodoSmart.Service.Interface\BlazorTodoSmart.Service.Interface.csproj" />
+    <ProjectReference Include="..\Client.CommonService\Client.CommonService.csproj" />
+  </ItemGroup>
+
+</Project>

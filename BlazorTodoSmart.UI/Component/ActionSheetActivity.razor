@@ -1,0 +1,54 @@
+﻿@using Common.Client.UI.Component
+@using Telerik.Blazor.Components
+@using Microsoft.AspNetCore.Components.Forms;
+<ActionSheet ActionTitle="@Title" ID="@ID">
+    <ActionSheetContent>
+        @if (activityViewModel.IsFirstLoad || activityViewModel.IsLoading)
+        {
+            <p>Loading....</p>
+        }
+        else
+        {        
+            <TelerikLoaderContainer Visible="@activityViewModel.IsSaving" Text="Saving data"></TelerikLoaderContainer>
+            <TelerikForm Model="@activityViewModel"
+                         OnValidSubmit="@activityViewModel.OnValidSubmitHandler">
+                <FormValidation>
+                    <DataAnnotationsValidator></DataAnnotationsValidator>
+                </FormValidation>
+                <FormItems>
+                    <FormGroup>
+                        <FormItem Class="form-group basic">
+                            <Template>
+                                <div class="input-wrapper">
+
+                                    <input type="text" class="form-control" placeholder="Enter an activity" @bind="activityViewModel.Description">
+                                    <i class="clear-input">
+                                        <ion-icon name="close-circle" role="img" class="md hydrated" aria-label="close circle"></ion-icon>
+                                    </i>
+                                </div>
+                                <TelerikValidationMessage For="@(() => activityViewModel.Description)" Class="input-info"></TelerikValidationMessage>
+
+                            </Template>
+                        </FormItem>
+                        <FormItem Class="form-group basic">
+                            <Template>
+                                <div class="input-wrapper">
+                                    <TelerikDatePicker @bind-Value="@activityViewModel.DueDate" />
+                                </div>
+                            </Template>
+                        </FormItem>
+                    </FormGroup>
+                    
+                </FormItems>
+                <FormButtons>
+                    <div class="form-group basic">
+                        <button type="submit" class="btn btn-primary btn-block" data-bs-dismiss="modal" disabled="@(!activityViewModel.IsSaveButtonEnabled)" @onclick="@(async() => { await AddActivity(); })">
+                            Save
+                        </button>
+                    </div>
+                </FormButtons>
+            </TelerikForm>
+        }        
+    </ActionSheetContent>
+</ActionSheet>
+

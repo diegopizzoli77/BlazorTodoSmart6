@@ -1,0 +1,64 @@
+﻿@using Telerik.Blazor.Components
+@using Telerik.Blazor
+@using BlazorTodoSmart.Models
+
+<div style="margin: 0; padding: 0; border-width: 0; height: 80vh;">
+
+    @if (@activityViewModel.FilterDate.HasValue)
+    {
+        <p>Date: @activityViewModel.FilterDate.Value.ToLongDateString()</p>
+    }
+
+    <TelerikLoaderContainer OverlayThemeColor="light" Visible="@( activityViewModel.IsFirstLoad )"
+                            Text="@null" Class="initial-data-loader">
+        <Template>
+            <TelerikLoader Type="@LoaderType.InfiniteSpinner" Size="@LoaderSize.Large"></TelerikLoader>
+        </Template>
+    </TelerikLoaderContainer>
+
+    <TelerikGrid Data="@activityViewModel.GridSource" FilterMode="@GridFilterMode.None" Sortable="false"
+                 Height="90vh"
+                 RowHeight="86"
+                 PageSize="20"
+                 SelectionMode="@GridSelectionMode.Single"
+                 OnRowClick="MyOnRowClick"
+                 ScrollMode="@GridScrollMode.Virtual"
+                 OnRead="@activityViewModel.ReadItems">
+        <RowTemplate Context="item">
+            @{
+                var rowActivity = item as ActivityItem;
+                <ActivityListItem RowActivity="rowActivity" CheckedItemCallBack="CheckedItemCallBack" />
+            }
+        </RowTemplate>
+        <GridColumns>
+            <GridColumn Field="@(nameof(ActivityItem.Description))" Groupable="false">
+                <HeaderTemplate>
+                </HeaderTemplate>
+            </GridColumn>
+        </GridColumns>
+        <NoDataTemplate>
+            @if (!activityViewModel.IsFirstLoad && !activityViewModel.IsLoading)
+            {
+                <strong>Well done!!! Press + button to add new activity.</strong>
+            }
+
+        </NoDataTemplate>
+    </TelerikGrid>
+</div>
+
+<style>
+    .k-grid .k-alt {
+        background-color: #ffffff;
+    }
+
+    .k-grid tbody tr:hover,
+    .k-grid tbody tr.k-state-hover {
+        color: #ffffff;
+        background-color: #ffffff
+    }
+
+    .k-grid th.k-state-selected, .k-grid td.k-state-selected, .k-grid tr.k-state-selected > td {
+        color: #ffffff;
+        background-color: #ffffff;
+    }
+</style>

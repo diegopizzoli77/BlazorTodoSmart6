@@ -1,0 +1,45 @@
+﻿@using Common.Client.UI.Page
+@using BlazorTodoSmart.UI.Component
+
+<BasePage IsBackActive="false" PageTitle="BlazorTodoSmart">
+    <PageContent>
+
+        <BaseActivitySummary @ref="RefbaseActivitySummary"/>
+       
+        <BaseActivityMainCalendar @ref="refBaseActivityCalendar" OnCalendarSelectDate="@OnCalendarSelectDate"/>
+
+        <BaseActionSheetActivity @ref="refActionSheet" ID="addnewActivity" IDActivity="0" OnActivityAdded="RefreshData"/>
+
+        <div class="fab-button bottom-right">
+            <a data-bs-toggle="modal" data-bs-target="#addnewActivity" class="fab">
+                <ion-icon name="add-outline" role="img" class="md hydrated" aria-label="add outline"></ion-icon>
+            </a>
+        </div>
+
+    </PageContent>
+</BasePage>
+
+@code
+{
+    private BaseActivitySummary RefbaseActivitySummary;
+    private BaseActivityMainCalendar refBaseActivityCalendar;
+    private BaseActionSheetActivity refActionSheet;
+
+    private DateTime selectedDate = DateTime.Now;
+
+    private void OnCalendarSelectDate(DateTime inputDate)
+    {
+        selectedDate = inputDate;
+        refActionSheet.SetDueDate(inputDate);
+
+    }
+
+    private async Task RefreshData()
+    {
+
+        await RefbaseActivitySummary.RefreshStatistics();
+        await refBaseActivityCalendar.RefreshCalendar();
+
+
+    }
+}

@@ -1,0 +1,116 @@
+﻿@using Telerik.Blazor.Components;
+@using Telerik.Blazor;
+@using BlazorTodoSmart.Models
+@inject NavigationManager NavManager
+
+<div style="height: 70vh;">
+    <TelerikCarousel Data="@CalendarViewModel.CarouselData" Width="100%" Height="400px" AutomaticPageChange="false" LoopPages="false" Pageable="false" Arrows="true" PageChanged="@CalendarViewModel.PageChangedHandler">
+        <Template>
+
+
+            <div class="d-flex justify-content-center align-items-center" style="margin-top: 70px;">
+                <TelerikCalendar SelectionMode="@Telerik.Blazor.CalendarSelectionMode.Single" BottomView="@CalendarView.Month" @bind-View="@selectedView"
+                                 Min="@(new DateTime(context.Year, context.Month, 1))"
+                                 Max="@(new DateTime(context.Year, context.Month,DateTime.DaysInMonth(context.Year,context.Month)))"
+                                 Value="@CalendarViewModel.SelectedDate"
+                                 ValueChanged="@(async (inputDate) => { await CalendarViewModel.ValueChanged(inputDate); await OnCalendarSelectDate.InvokeAsync(inputDate); }  )"
+                                 OnCellRender="OnCellRender"
+                                 Date="@context">
+
+                    <MonthCellTemplate Context="calcontext">
+                        @if (CalendarViewModel.HasDateEvents(calcontext))
+                        {
+                            <i class="bi bi-calendar4-event calendEvent"></i>
+                        }
+                        @calcontext.Day
+                    </MonthCellTemplate>
+
+                </TelerikCalendar>
+            </div>
+
+
+        </Template>
+    </TelerikCarousel>
+
+
+    <div>
+        <TelerikGrid Data="@CalendarViewModel.SelectedDayItems" FilterMode="@GridFilterMode.None" Sortable="false"
+                     Height="300px"
+                     RowHeight="86"
+                     PageSize="20"
+                     SelectionMode="@GridSelectionMode.Single"
+                     ScrollMode="@GridScrollMode.Virtual"
+                     Groupable="false">
+
+            <RowTemplate Context="item">
+                @{
+                    var rowActivity = item as ActivityItem;
+                    <ActivityListItem RowActivity="rowActivity" IsCheckEnabled="false" IsDetailEnabled="false" OnClickItem="@(() => Navigate(rowActivity.DueDate))" />
+                }
+            </RowTemplate>
+            <GridColumns>
+                <GridColumn Field="Description" Groupable="false">
+                    <HeaderTemplate>
+                    </HeaderTemplate>
+                </GridColumn>
+            </GridColumns>
+            <NoDataTemplate>
+                <strong>No activity on day @CalendarViewModel.SelectedDate.ToShortDateString()</strong>
+            </NoDataTemplate>
+        </TelerikGrid>
+    </div>
+</div>
+
+
+
+
+<style>
+    .k-scrollview-next, .k-scrollview-prev {
+        height: 15%;
+        top: 1%;
+    }
+
+    .k-i-arrowhead-e, .k-i-arrowhead-w {
+        color: #0b4fe7;
+    }
+
+    .hasActivity {
+        color: red;
+        font-weight: bold;
+    }
+
+    .k-link {
+        padding: 3px 3px 3px 3px !important;
+    }
+
+    .calendEvent {
+        padding-right: 2px;
+        color: #23aced;
+    }
+
+    .k-calendar-monthview .k-link {
+        width: 37px;
+        height: 37px;
+    }
+
+    .k-grid .k-alt {
+        background-color: #ffffff;
+    }
+
+    .k-grid tbody tr:hover,
+    .k-grid tbody tr.k-state-hover {
+        color: #ffffff;
+        background-color: #ffffff
+    }
+
+    .k-grid th.k-state-selected, .k-grid td.k-state-selected, .k-grid tr.k-state-selected > td {
+        color: #ffffff;
+        background-color: #ffffff;
+    }
+
+    .k-grid-header .k-header {
+        background-color: #ffffff;
+        border: none;
+        padding: 0;
+    }
+</style>

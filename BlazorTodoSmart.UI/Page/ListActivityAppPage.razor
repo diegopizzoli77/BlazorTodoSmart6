@@ -1,0 +1,54 @@
+﻿@using Common.Client.UI.Page
+@using BlazorTodoSmart.UI.Component
+@using Common.Client.UI.Component
+@using Common.Client.UI.View
+@using BlazorTodoSmart.Models
+@using BlazorTodoSmart.MVVM.Interface
+
+<BasePage IsBackActive="true" PageTitle="Activity List">
+    <PageContent>
+        <BaseViewComponent T="ActivityItem" TViewModel="IListActivityPageViewModel" @ref="mainVMRef">
+            <Content Context="viewmodel">
+               
+                @* List Component *@
+                <BaseActivityList ActivitySelectedCallBack="@viewmodel.OnActivitySelected" @ref="listRef" ActivityCheckedCallBack="@viewmodel.OnActivityChecked" FilterDate="@FilterDate" FilterMode="@FilterMode"/>
+
+                <BaseActionSheetActivity ID="addnewActivity" IDActivity="0" OnActivityAdded="@viewmodel.OnActivityUpdated" />
+
+                @* Bind with Activity selected *@
+                <BaseActionSheetActivity ID="updateActivity" IDActivity="@viewmodel.IDActivitySelected" Title="Modify" @ref="updRef" OnActivityAdded="@viewmodel.OnActivityUpdated" />
+
+                <ActionToast ToastDescription="Activity done?" Show="@viewmodel.ActivityChecked" OnClickOk="@viewmodel.OnActivityDone" OnClickCancel="@viewmodel.OnActivityUndo"></ActionToast>
+
+                <FabButton Target="#addnewActivity"></FabButton>
+
+            </Content>
+        </BaseViewComponent>
+
+    </PageContent>
+</BasePage>
+
+@code {
+
+    [Parameter]
+    public DateTime? FilterDate { get; set; }
+
+    [Parameter]
+    public int FilterMode { get; set; } = 0;
+
+    private BaseActionSheetActivity updRef;
+    private BaseActivityList listRef;
+
+    private BaseViewComponent<IListActivityPageViewModel, ActivityItem> mainVMRef;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            mainVMRef.BaseViewModel.ActivityListVM = listRef.MyActivityListViewModel;
+            mainVMRef.BaseViewModel.UpdateActivityVM = updRef.ActionSheetViewModel;
+        }
+
+        base.OnAfterRender(firstRender);
+    }
+}

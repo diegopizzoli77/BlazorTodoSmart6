@@ -1,0 +1,134 @@
+﻿@using Telerik.Blazor.Components;
+@using Telerik.Blazor;
+
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+
+
+<!-- Share Action Sheet -->
+<div class="modal fade action-sheet inset" id="actionSheetAvatar" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Select your avatar</h5>
+            </div>
+            <div class="modal-body">
+                <div class="action-sheet-content text-center">
+                    <div>
+
+                        <TelerikCarousel Data="@CarouselImage" Width="100%" Height="100px" 
+                                         AutomaticPageChange="false" LoopPages="true" Pageable="false" Arrows="true"
+                                         Page="@PageIndex"
+                                         >
+                            <Template>
+
+
+                                <img src="@context" alt="avatar" class="imaged" style="padding-top:5px;width:80px;height:80px" @onclick="@(() => imageClick(context))">
+
+                            </Template>
+                        </TelerikCarousel>
+
+                    </div>
+                    <form>
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="form-label" for="name3">Name</label>
+                                <input type="text" class="form-control" id="name3" value="@myName"
+                                       placeholder="Enter your name" @onchange="onChange">
+                                <i class="clear-input">
+                                    <ion-icon name="close-circle"></ion-icon>
+                                </i>
+                            </div>
+                            <div class="input-info">Enter your full name</div>
+                        </div>
+
+
+                        <div class="form-group basic">
+                            <button type="button" class="btn btn-primary btn-block" data-bs-dismiss="modal" @onclick="@(async() => { await onClickSave(); } )">
+                                Save
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- * Share Action Sheet -->
+
+@code {
+
+    private string selectedImage = string.Empty;
+
+    private string myName { get; set; }
+
+    private int PageIndex { get; set; } = 1;
+
+    private void imageClick(string selImg)
+    {
+        selectedImage = selImg;
+        PageIndex=CarouselImage.IndexOf(selectedImage) + 1;
+        OnSelectedImage.InvokeAsync(selectedImage);
+    }
+
+    private void onChange(Microsoft.AspNetCore.Components.ChangeEventArgs args)
+    {
+        myName = (string)args.Value;
+
+        OnNameChange.InvokeAsync(myName);
+    }
+
+    private async Task saveUserData()
+    {
+        if (!string.IsNullOrEmpty(myName))
+        {
+            await localStorage.SetItemAsync("userName", myName);
+        }
+
+        if (!string.IsNullOrEmpty(selectedImage))
+        {
+            await localStorage.SetItemAsync("userImage", selectedImage);
+            await localStorage.SetItemAsync("pageindex", CarouselImage.IndexOf(selectedImage)+1);
+        }
+    }
+
+    private async Task onClickSave()
+    {
+        await saveUserData();
+    }
+
+    private async Task loadUserData()
+    {
+        myName = await localStorage.GetItemAsync<string>("userName");
+        selectedImage = await localStorage.GetItemAsync<string>("userImage");
+
+        string tempvar = await localStorage.GetItemAsync<string>("pageindex");
+
+        if (!string.IsNullOrEmpty(tempvar))
+            PageIndex = Convert.ToInt32(tempvar);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await loadUserData();
+
+        await base.OnInitializedAsync();
+    }
+
+    [Parameter]
+    public EventCallback<string> OnSelectedImage { get; set; }
+
+    [Parameter]
+    public EventCallback<string> OnNameChange { get; set; }
+
+    public List<string> CarouselImage = new List<string> {
+        "assets/img/sample/avatar/001-boy.svg",
+        "assets/img/sample/avatar/002-girl.svg",
+        "assets/img/sample/avatar/003-girl-1.svg",
+        "assets/img/sample/avatar/004-boy-1.svg",
+        "assets/img/sample/avatar/005-girl-2.svg",
+        "assets/img/sample/avatar/006-girl-3.svg",
+        "assets/img/sample/avatar/007-boy-2.svg"
+    };
+
+}

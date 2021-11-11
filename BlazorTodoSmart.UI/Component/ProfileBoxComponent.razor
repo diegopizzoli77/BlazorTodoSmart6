@@ -1,0 +1,30 @@
+﻿<div class="profileBox">
+    <div class="image-wrapper">
+        <img src="@AvatarImage" alt="your avatar" class="imaged rounded" data-bs-toggle="modal" data-bs-backdrop="static"
+             data-bs-target="#actionSheetAvatar">
+    </div>
+    <div class="in" data-bs-toggle="modal" data-bs-backdrop="static" data-bs-target="#actionSheetAvatar">
+        @if (!string.IsNullOrEmpty(UserName))
+        {
+        <strong>@UserName</strong>
+        }
+        else
+            {
+                <div class="input-info">Enter your full name</div>
+            }       
+    </div>
+    <a href="#" class="close-sidebar-button" data-bs-dismiss="modal">
+        <ion-icon name="close"></ion-icon>
+    </a>
+</div>
+
+
+
+@code {
+
+    [Parameter]
+    public string AvatarImage { get; set; }
+
+    [Parameter]
+    public string UserName { get; set; }
+}

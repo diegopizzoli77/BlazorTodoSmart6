@@ -1,0 +1,26 @@
+@using Microsoft.JSInterop
+<div class="item">
+        <div class="icon-box bg-primary">
+            <ion-icon name="moon-outline" role="img" class="md hydrated" aria-label="moon outline"></ion-icon>
+        </div>
+        <div class="in">
+            <div>Dark Mode</div>
+            <div class="form-check form-switch">
+                <input class="form-check-input dark-mode-switch" type="checkbox" id="darkmodesidebar" checked="@ActiveDarkTheme" @onchange="themeChanged">
+                <label class="form-check-label" for="darkmodesidebar"></label>
+            </div>
+        </div>
+    </div>
+
+@code {
+
+    [Inject]
+    IJSRuntime JSRuntime { get; set; }
+    public bool ActiveDarkTheme { get;set;} = false;
+
+    private async Task themeChanged(ChangeEventArgs eventArgs)
+    {        
+        ActiveDarkTheme = (bool)eventArgs.Value;
+        await JSRuntime.InvokeVoidAsync("MyInterop.ChangeTheme", ActiveDarkTheme);
+    }
+}

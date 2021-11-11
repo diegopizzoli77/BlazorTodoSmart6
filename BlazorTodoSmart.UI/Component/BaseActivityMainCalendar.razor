@@ -1,0 +1,30 @@
+﻿@using Common.Client.UI.View
+@using BlazorTodoSmart.Models
+@using BlazorTodoSmart.MVVM.Interface
+
+<BaseViewComponent TViewModel="IActivityCalendarViewModel" T="ActivityItem" @ref="refBaseView">
+    <Content Context="viewmodel">
+
+        <ActivityMainCalendar CalendarViewModel="@viewmodel" OnCalendarSelectDate="@OnCalendarSelectDate"/>
+
+    </Content>
+
+</BaseViewComponent>
+
+@code {
+
+    BaseViewComponent<IActivityCalendarViewModel, ActivityItem> refBaseView;
+
+    [Parameter]
+    public EventCallback<DateTime> OnCalendarSelectDate { get; set; }
+
+    public async Task RefreshCalendar()
+    {
+
+        await InvokeAsync(() =>
+        {
+            refBaseView.BaseViewModel.RefreshData();
+
+        });
+    }
+}

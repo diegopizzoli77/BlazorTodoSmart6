@@ -1,0 +1,31 @@
+﻿
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Blazored.LocalStorage" Version="4.1.5" />
+    <PackageReference Include="DnetIndexedDb" Version="2.3.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+    <PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="2.29.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+   
+    <ProjectReference Include="..\..\BlazorTodoSmart.MVVM\BlazorTodoSmart.MVVM.csproj" />
+   
+    <ProjectReference Include="..\..\BlazorTodoSmart.Service.Interface\BlazorTodoSmart.Service.Interface.csproj" />
+    <ProjectReference Include="..\..\BlazorTodoSmart.Service\BlazorTodoSmart.Service.csproj" />
+    <ProjectReference Include="..\..\BlazorTodoSmart.UI\BlazorTodoSmart.UI.csproj" />
+    <ProjectReference Include="..\..\Common.Client.UI\Common.Client.UI.csproj" />
+    <ProjectReference Include="..\..\Client.CommonService.IndexedDB\Client.CommonService.IndexedDB.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
+  </ItemGroup>
+  
+</Project>

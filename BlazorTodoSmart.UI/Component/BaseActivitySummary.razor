@@ -1,0 +1,27 @@
+﻿@using Common.Client.UI.View
+@using BlazorTodoSmart.Models
+@using BlazorTodoSmart.MVVM.Interface
+
+<BaseViewComponent TViewModel="IActivitySummaryViewModel" T="ActivitySummaryGroup" @ref="refBaseView">
+    <Content Context="viewmodel">
+
+        <ActivitySummary viewmodel="@viewmodel" />
+
+    </Content>
+
+</BaseViewComponent>
+
+@code
+{
+    BaseViewComponent<IActivitySummaryViewModel, ActivitySummaryGroup> refBaseView;
+
+    public async Task RefreshStatistics()
+    {
+
+        await InvokeAsync(() =>
+        {
+            refBaseView.BaseViewModel.RefreshData();
+
+        });        
+    }
+}

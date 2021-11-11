@@ -1,0 +1,41 @@
+<div id="myToast" class="@(string.Format("toast-box toast-bottom {0}",Show ? "show": ""))">
+    <div class="in">
+        <ion-icon name="alarm-outline" class="text-primary md hydrated" role="img" aria-label="alarm outline"></ion-icon>
+        <div class="text">
+            @ToastDescription
+        </div>
+    </div>
+    <div class="in">
+        <div class="btn-inline">
+            <button type="button" class="btn btn-sm btn-text-light close-button" @onclick="onclose">OK</button>
+            <button type="button" class="btn btn-sm btn-text-light close-button" @onclick="oncancel">Cancel</button>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string ToastDescription { get; set; }
+
+    [Parameter]
+    public EventCallback OnClickOk { get; set; }
+
+    [Parameter]
+    public EventCallback OnClickCancel { get; set; }
+
+    [Parameter]
+    public bool Show { get; set; } = false;
+
+    private async Task onclose()
+    {
+        Show=false;
+        await OnClickOk.InvokeAsync();
+    }
+
+    private async Task oncancel()
+    {
+        Show = false;
+        await OnClickCancel.InvokeAsync();
+    }
+
+}

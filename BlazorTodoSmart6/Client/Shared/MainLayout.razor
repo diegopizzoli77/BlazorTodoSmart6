@@ -1,0 +1,49 @@
+﻿@layout TelerikLayout
+
+@inherits LayoutComponentBase
+
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+
+<AppSideBar AvatarImage="@avatarImage" UserName="@myUserName" />
+
+<!-- App Capsule -->
+<div id="appCapsule" class="full-height">
+    <div class="section full mt-2">
+        @Body
+        <!-- Go to top button-->
+        <a href="#" class="button goTop">
+            <ion-icon name="arrow-up-outline"></ion-icon>
+        </a>
+    </div>
+</div>
+
+<BlazorTodoSmart.UI.Component.ActionSheetAvatar OnSelectedImage="onAvatarSelected" OnNameChange="onNameChanged" />
+
+@code{
+
+    private string avatarImage = "assets/img/sample/avatar/001-boy.svg";
+    private string myUserName = string.Empty;
+
+    private void onNameChanged(string name)
+    {
+        myUserName = name;
+    }
+
+    private void onAvatarSelected(string img)
+    {
+        avatarImage = img;
+    }
+
+    private async Task loadUserData()
+    {
+        myUserName = await localStorage.GetItemAsync<string>("userName");
+        avatarImage = await localStorage.GetItemAsync<string>("userImage");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await loadUserData();
+
+        await base.OnInitializedAsync();
+    }
+}

@@ -1,0 +1,27 @@
+﻿<div class="modal fade action-sheet" id="@ID" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@ActionTitle</h5>
+            </div>
+            <div class="modal-body">
+                <div class="action-sheet-content">
+                    @ActionSheetContent
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public string @ID { get; set; } = "actionSheetForm";
+
+    [Parameter]
+    public string ActionTitle { get; set; }
+
+    [Parameter]
+    public RenderFragment ActionSheetContent { get; set; }
+}
+

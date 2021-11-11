@@ -1,0 +1,43 @@
+﻿@using Common.Client.UI.View
+@using BlazorTodoSmart.Models
+@using BlazorTodoSmart.MVVM.Interface
+
+<BaseViewComponent TViewModel="IActivityListViewModel" T="ActivityItem" @ref="refBase">
+    <Content Context="viewmodel">
+
+        <ActivityList activityViewModel="@viewmodel" IDProject="@IDProject" SelectedItemCallBack="ActivitySelectedCallBack" 
+                      CheckedItemCallBack="ActivityCheckedCallBack" FilterDate="@FilterDate" FilterMode="@FilterMode"/>
+
+    </Content>
+
+</BaseViewComponent>
+
+@code {        
+
+
+
+
+    [Parameter]
+    public int IDProject { get; set; } = 0;
+
+    [Parameter]
+    public EventCallback<int> ActivitySelectedCallBack { get; set; }
+
+    [Parameter]
+    public EventCallback<int> ActivityCheckedCallBack { get; set; }
+
+    [Parameter]
+    public DateTime? FilterDate { get; set; }
+
+    [Parameter]
+    public int FilterMode { get; set; } = 0;
+
+    BaseViewComponent<IActivityListViewModel, ActivityItem> refBase;
+
+    public IActivityListViewModel MyActivityListViewModel => refBase.BaseViewModel;
+
+    public async Task RefreshList()
+    {
+        await refBase.BaseViewModel.RefreshData();
+    }
+}

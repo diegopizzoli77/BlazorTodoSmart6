@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#000000">
+    <title>BlazorTodoSmart</title>
+    <base href="/" />
+    <link rel="icon" type="image/png" href="assets/img/favicon.png" sizes="32x32">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/icon/192x192.png">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="_content/Telerik.UI.for.Blazor/css/kendo-theme-bootstrap/all.css" rel="stylesheet" />
+    <script src="_content/Telerik.UI.for.Blazor/js/telerik-blazor.js" defer></script>
+    <link href="manifest.json" rel="manifest" />
+</head>
+<body>
+    <div id="app">
+        <!-- loader -->
+        <div id="loader">
+            <!--<div class="spinner-border text-primary" role="status"></div>-->
+
+        </div>
+        <div class="k-loader-container k-loader-container-md k-loader-end container-size">
+            <div class="k-loader-container-overlay k-overlay-light"></div>
+            <div class="k-loader-container-inner">
+                <div class="k-loader k-loader-pulsing-2 k-loader-lg k-loader-info">
+                    <div class="k-loader-canvas">
+                        <span class="k-loader-segment"></span>
+                        <span class="k-loader-segment"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ============== Js Files ==============  -->
+    <!-- Bootstrap -->
+    <script src="assets/js/lib/bootstrap.min.js"></script>
+    <!-- Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.js"></script>
+    <!-- Splide -->
+    <script src="assets/js/plugins/splide/splide.min.js"></script>
+    <!-- ProgressBar js -->
+    <script src="assets/js/plugins/progressbar-js/progressbar.min.js"></script>
+    <!-- Base Js File -->
+    <script src="assets/js/base.js"></script>
+
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="_content/DnetIndexedDb/rxjs.min.js"></script>
+    <script src="_content/DnetIndexedDb/dnet-indexeddb.js"></script>
+    <script>navigator.serviceWorker.register('service-worker.js');</script>
+</body>
+</html>

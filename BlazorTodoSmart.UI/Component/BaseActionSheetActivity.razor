@@ -1,0 +1,43 @@
+﻿@using Common.Client.UI.View
+@using BlazorTodoSmart.Models
+@using BlazorTodoSmart.MVVM.Interface
+
+<BaseViewComponent TViewModel="IActivityFormViewModel" T="ActivityItem" @ref="refComp">
+    <Content Context="viewmodel">
+
+        <ActionSheetActivity activityViewModel="@viewmodel" ID="@ID" IDActivity="@IDActivity" OnActivityAdded="@OnActivityAdded" Title="@Title"/>
+
+    </Content>
+
+</BaseViewComponent>
+
+@code {
+
+
+    BaseViewComponent<IActivityFormViewModel, ActivityItem> refComp;
+
+
+    public IActivityFormViewModel ActionSheetViewModel { get => refComp.BaseViewModel;  }
+
+    [Parameter]
+    public string ID { get; set; } = "actionSheetForm";
+
+    [Parameter]
+    public int IDActivity { get; set; } = 0;
+
+    [Parameter]
+    public EventCallback OnActivityAdded { get; set; }
+
+    [Parameter]
+    public string Title { get; set; } = "Activity";
+
+    public async Task LoadActivity(int idActivitySelez)
+    {
+        await refComp.BaseViewModel.InitForm(idActivitySelez);
+    }
+
+    public void SetDueDate(DateTime inputDate)
+    {
+        refComp.BaseViewModel.DueDate = inputDate;
+    }
+}

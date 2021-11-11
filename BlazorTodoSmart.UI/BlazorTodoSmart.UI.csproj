@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Blazored.LocalStorage" Version="4.1.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="2.29.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlazorTodoSmart.Models\BlazorTodoSmart.Models.csproj" />
+    <ProjectReference Include="..\BlazorTodoSmart.MVVM.Interface\BlazorTodoSmart.MVVM.Interface.csproj" />
+    <ProjectReference Include="..\Common.Client.UI\Common.Client.UI.csproj" />
+  </ItemGroup>
+
+</Project>

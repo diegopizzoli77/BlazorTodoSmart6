@@ -1,0 +1,15 @@
+﻿<div class="fab-button bottom-right">
+    <a data-bs-toggle="modal" data-bs-target="@Target" class="fab" @onclick="@OnClickAdd">
+        <ion-icon name="add-outline" role="img" class="md hydrated" aria-label="add outline"></ion-icon>
+    </a>
+</div>
+
+@code {
+
+    [Parameter]
+    public string Target { get; set; }
+
+    [Parameter]
+    public EventCallback OnClickAdd { get; set; }
+
+}
