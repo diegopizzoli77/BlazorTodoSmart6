@@ -34,6 +34,9 @@
 
                                     </a>
                                 }
+                                <a class="comment-button" style="margin-left:9px">
+                                    <ion-icon name="@(getPriorityIcon(@RowActivity.Priority))" role="img" class="@(string.Format("md hydrated {0}",getPriorityIconCss(@RowActivity.Priority)))" aria-label="heart outline"></ion-icon>
+                                </a>
 
                             </div>
                         </div>
@@ -60,7 +63,9 @@
 
                                     </a>
                                 }
-
+                                 <a class="comment-button" style="margin-left:9px">
+                                    <ion-icon name="@(getPriorityIcon(@RowActivity.Priority))" role="img" class="@(string.Format("md hydrated {0}",getPriorityIconCss(@RowActivity.Priority)))" aria-label="heart outline"></ion-icon>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -83,6 +88,13 @@
     [Parameter]
     public EventCallback OnClickItem { get; set; }
 
+    [Parameter]
+    public bool IsCheckEnabled { get; set; } = true;
+
+    [Parameter]
+    public bool IsDetailEnabled { get; set; } = true;
+
+
     private void MyRowOnChecked(MouseEventArgs eventArgs, bool ischecked, int IdActivityCheck)
     {
 
@@ -91,9 +103,36 @@
 
     }
 
-    [Parameter]
-    public bool IsCheckEnabled { get; set; } = true;
+    private string getPriorityIcon(int idpriority)
+    {
+        if (idpriority == 0)
+            return "flag-outline";
+        else
+            return "flag";
+    }
 
-    [Parameter]
-    public bool IsDetailEnabled { get; set; } = true;
+    private string getPriorityIconCss(int idpriority)
+    {
+        string res = "";
+
+        switch (idpriority)
+        {
+            case 1 :
+                res = "text-danger";
+                break;
+            case 2 :
+                res = "text-warning";
+                break;
+            case 3 :
+                res = "text-success";
+                break;
+
+            default:
+                res = "";
+                break;
+        }
+
+        return res;
+    }
+
 }

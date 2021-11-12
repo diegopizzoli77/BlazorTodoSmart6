@@ -1,0 +1,24 @@
+﻿@using Telerik.Blazor.Components
+@using BlazorTodoSmart.Models;
+
+<TelerikDropDownList Data="@priorityItems" ValueField="Id" TextField="Description" 
+    Width="60px" TItem="PriorityItem" TValue="int" @bind-Value="Priority" Class="dropdown" OnChange="PriorityOnChangeHandler">
+	<ValueTemplate>
+         <div class="comment-button" >
+                <ion-icon name="@((context as PriorityItem).IconName)" role="img" class="@(string.Format("md hydrated {0}",(context as PriorityItem).IconClass))" aria-label="heart outline"></ion-icon>
+         </div>
+    </ValueTemplate>
+	
+	<ItemTemplate>
+		 <div class="comment-button" >
+                <ion-icon name="@((context as PriorityItem).IconName)" role="img" class="@(string.Format("md hydrated {0}",(context as PriorityItem).IconClass))" aria-label="heart outline"></ion-icon>
+         </div>
+	</ItemTemplate>
+</TelerikDropDownList>
+
+
+<style>
+    .k-dropdown .k-dropdown-wrap, .k-dropdowntree .k-dropdown-wrap {       
+    background-color: transparent !important;
+}
+</style>

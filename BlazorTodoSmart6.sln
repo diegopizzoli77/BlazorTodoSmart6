@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorTodoSmart6.Client", "BlazorTodoSmart6\Client\BlazorTodoSmart6.Client.csproj", "{524C8B5A-0850-4FC4-B7DC-FF46498D0188}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorTodoSmart6.Client", "BlazorTodoSmart6\Client\BlazorTodoSmart6.Client.csproj", "{524C8B5A-0850-4FC4-B7DC-FF46498D0188}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client.Models", "Client.Models", "{CD109EE4-D7C1-4B03-AE85-9E74F206F63C}"
 EndProject
