@@ -361,3 +361,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/BlazorTodoSmart6/Client/Properties/ServiceDependencies/BlazorTodoSmart6 - Web Deploy/profile.arm.json
