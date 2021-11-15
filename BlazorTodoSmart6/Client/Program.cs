@@ -42,19 +42,14 @@ builder.Services.AddTransient<IActivityMainService, ActivityMainService>();
 
 /*Register VM */
 builder.Services.AddTransient<IActivitySummaryViewModel, ActivitySummaryViewModel>();
-builder.Services.AddTransient<ActivitySummaryViewModel>();
 
 builder.Services.AddTransient<IActivityFormViewModel, ActivityFormViewModel>();
-builder.Services.AddTransient<ActivityFormViewModel>();
 
 builder.Services.AddTransient<IActivityListViewModel, ActivityListViewModel>();
-builder.Services.AddTransient<ActivityListViewModel>();
 
 builder.Services.AddTransient<IListActivityPageViewModel, ListActivityPageViewModel>();
-builder.Services.AddTransient<ListActivityPageViewModel>();
 
 builder.Services.AddTransient<IActivityCalendarViewModel, ActivityCalendarViewModel>();
-builder.Services.AddTransient<ActivityCalendarViewModel>();
 
 await builder.Build().RunAsync();
 
